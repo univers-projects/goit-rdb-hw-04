@@ -1,0 +1,23 @@
+SELECT COUNT(*) AS total_rows
+FROM order_details AS od
+RIGHT JOIN orders AS o
+    ON od.order_id = o.id
+LEFT JOIN customers AS c
+    ON o.customer_id = c.id
+INNER JOIN products AS p
+    ON od.product_id = p.id
+RIGHT JOIN categories AS cat
+    ON p.category_id = cat.id
+INNER JOIN suppliers AS s
+    ON p.supplier_id = s.id
+LEFT JOIN employees AS e
+    ON o.employee_id = e.employee_id
+INNER JOIN shippers AS sh
+    ON o.shipper_id = sh.id;
+
+518
+
+Кількість рядків не змінюється при використанні INNER, LEFT або RIGHT JOIN, це означає, що кожен рядок у повʼязаних таблицях
+має відповідний запис у таблицях, до яких він приєднується.
+У такому чистому датасеті немає відсутніх зв’язків, які могли би з’явитися як NULL при LEFT або RIGHT JOIN.
+Через це всі три типи JOIN повертають однаковий результат, бо жоден з них не знаходить додаткових записів поза межами INNER JOIN.
